@@ -72,16 +72,17 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     }
 
     private class HTTPClientSpy: HTTPClient {
-        var requestURLs = [URL]()
-        var completions = [(HTTPClientResult) -> Void]()
+        var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
+        var requestURLs: [URL] {
+            return messages.map { $0.url }
+        }
 
-        func get(fromURL url: URL, completion: @escaping (HTTPClientResult) -> Void) {
-            requestURLs.append(url)
-            completions.append(completion)
+        func get(fromURL url: URL, completion: @escaping (HTTPClientResult) -> Void) {            
+            messages.append((url, completion))
         }
 
         func complete(with error: Error, at index: Int = 0) {
-            completions[index](.failure(error))
+            messages[index].completion(.failure(error))
         }
 
         func complete(withStatusCode code: Int, at index: Int = 0) {
@@ -89,7 +90,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
                                            statusCode: code,
                                            httpVersion: nil,
                                            headerFields: nil)!
-            completions[index](.success(response))
+            messages[index].completion(.success(response))
         }
     }
 }
