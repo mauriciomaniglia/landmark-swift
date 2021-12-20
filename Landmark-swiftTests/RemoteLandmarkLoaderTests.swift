@@ -20,7 +20,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let url = URL(string: "http://some-url.com")!
         let (sut, httpClient) = makeSUT(url: url)
 
-        sut.load() { _ in }
+        sut.load { _ in }
 
         XCTAssertEqual(httpClient.requestURLs, [url])
     }
@@ -29,8 +29,8 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let url = URL(string: "http://some-url.com")!
         let (sut, httpClient) = makeSUT(url: url)
 
-        sut.load() { _ in }
-        sut.load() { _ in }
+        sut.load { _ in }
+        sut.load { _ in }
 
         XCTAssertEqual(httpClient.requestURLs, [url, url])
     }
