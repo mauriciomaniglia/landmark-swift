@@ -20,7 +20,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let url = URL(string: "http://some-url.com")!
         let (sut, httpClient) = makeSUT(url: url)
 
-        sut.load()
+        sut.load() { _ in }
 
         XCTAssertEqual(httpClient.requestURLs, [url])
     }
@@ -29,10 +29,22 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let url = URL(string: "http://some-url.com")!
         let (sut, httpClient) = makeSUT(url: url)
 
-        sut.load()
-        sut.load()
+        sut.load() { _ in }
+        sut.load() { _ in }
 
         XCTAssertEqual(httpClient.requestURLs, [url, url])
+    }
+
+    func test_load_deliversErrorOnClientError() {
+        let (sut, client) = makeSUT()
+
+        var capturedErrors = [RemoteLandmarkLoader.Error]()
+        sut.load { capturedErrors.append($0) }
+
+        let clientError = NSError(domain: "Test", code: 0)
+        client.complete(with: clientError)
+
+        XCTAssertEqual(capturedErrors, [.connectivity])
     }
 
     // MARK: - Helpers
@@ -46,9 +58,15 @@ class RemoteLandmarkLoaderTests: XCTestCase {
 
     private class HTTPClientSpy: HTTPClient {
         var requestURLs = [URL]()
+        var completions = [(HTTPClientResult) -> Void]()
 
-        func get(fromURL url: URL) {
+        func get(fromURL url: URL, completion: @escaping (HTTPClientResult) -> Void) {
             requestURLs.append(url)
+            completions.append(completion)
+        }
+
+        func complete(with error: Error) {
+            completions[0](.failure(error))
         }
     }
 }
