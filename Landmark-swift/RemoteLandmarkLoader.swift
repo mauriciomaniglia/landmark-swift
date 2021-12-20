@@ -32,7 +32,12 @@ public class RemoteLandmarkLoader {
 
     public func load(completion: @escaping (Error) -> Void) {
         httpClient.get(fromURL: url) { result in
-            completion(.connectivity)
+            switch result {
+            case .success:
+                completion(.invalidData)
+            case .failure:
+                completion(.connectivity)
+            }
         }
     }
 }

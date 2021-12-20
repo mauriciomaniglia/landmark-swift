@@ -47,6 +47,21 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         XCTAssertEqual(capturedErrors, [.connectivity])
     }
 
+    func test_load_deliversErrorOnNon200HTTPClientResponse() {
+        let (sut, client) = makeSUT()
+
+        let samples = [199, 201, 300, 400, 500]
+
+        samples.enumerated().forEach { index, code in
+            var capturedErrors = [RemoteLandmarkLoader.Error]()
+            sut.load { capturedErrors.append($0) }
+
+            client.complete(withStatusCode: code, at: index)
+
+            XCTAssertEqual(capturedErrors, [.invalidData])
+        }
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(url: URL = URL(string: "http://a-url.com")!) -> (sut: RemoteLandmarkLoader, httpClient: HTTPClientSpy) {
@@ -65,8 +80,16 @@ class RemoteLandmarkLoaderTests: XCTestCase {
             completions.append(completion)
         }
 
-        func complete(with error: Error) {
-            completions[0](.failure(error))
+        func complete(with error: Error, at index: Int = 0) {
+            completions[index](.failure(error))
+        }
+
+        func complete(withStatusCode code: Int, at index: Int = 0) {
+            let response = HTTPURLResponse(url: requestURLs[index],
+                                           statusCode: code,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+            completions[index](.success(response))
         }
     }
 }
