@@ -64,6 +64,15 @@ class RemoteLandmarkLoaderTests: XCTestCase {
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
     }
+    
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+        let (sut, client) = makeSUT()
+        
+        expect(sut, toCompleteWithError: .success([]), when: {
+            let emptyListJSON = Data("{\"items\": []}".utf8)
+            client.complete(withStatusCode: 200, data: emptyListJSON)
+        })
+    }
 
     // MARK: - Helpers
 
