@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Landmark {
+public struct Landmark: Equatable {
     let id: UUID
     let description: String
     let location: String

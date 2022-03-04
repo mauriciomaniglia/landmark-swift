@@ -38,7 +38,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWithError: .connectivity, when: {
+        expect(sut, toCompleteWithError: .failure(.connectivity), when: {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         })
@@ -50,7 +50,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
 
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWithError: .invalidData, when: {
+            expect(sut, toCompleteWithError: .failure(.invalidData), when: {
                 client.complete(withStatusCode: code, at: index)
             })
         }
@@ -59,7 +59,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithError: .invalidData, when: {
+        expect(sut, toCompleteWithError: .failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -97,8 +97,8 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         }
     }
     
-    private func expect(_ sut: RemoteLandmarkLoader, toCompleteWithError error: RemoteLandmarkLoader.Error, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        var capturedErrors = [RemoteLandmarkLoader.Error]()
+    private func expect(_ sut: RemoteLandmarkLoader, toCompleteWithError error: RemoteLandmarkLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        var capturedErrors = [RemoteLandmarkLoader.Result]()
         sut.load { capturedErrors.append($0) }
         
         action()

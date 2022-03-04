@@ -24,19 +24,24 @@ public class RemoteLandmarkLoader {
         case connectivity
         case invalidData
     }
+    
+    public enum Result: Equatable {
+         case success([Landmark])
+         case failure(Error)
+     }
 
     public init(url: URL, httpClient: HTTPClient) {
         self.url = url
         self.httpClient = httpClient
     }
 
-    public func load(completion: @escaping (Error) -> Void) {
+    public func load(completion: @escaping (Result) -> Void) {
         httpClient.get(fromURL: url) { result in
             switch result {
             case .success:
-                completion(.invalidData)
+                completion(.failure(.invalidData))
             case .failure:
-                completion(.connectivity)
+                completion(.failure(.connectivity))
             }
         }
     }
