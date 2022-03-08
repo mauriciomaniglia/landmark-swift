@@ -38,7 +38,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWithError: .failure(.connectivity), when: {
+        expect(sut, toCompleteWithResult: .failure(.connectivity), when: {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         })
@@ -50,7 +50,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
 
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWithError: .failure(.invalidData), when: {
+            expect(sut, toCompleteWithResult: .failure(.invalidData), when: {
                 client.complete(withStatusCode: code, at: index)
             })
         }
@@ -59,7 +59,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithError: .failure(.invalidData), when: {
+        expect(sut, toCompleteWithResult: .failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -68,7 +68,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithError: .success([]), when: {
+        expect(sut, toCompleteWithResult: .success([]), when: {
             let emptyListJSON = Data("{\"items\": []}".utf8)
             client.complete(withStatusCode: 200, data: emptyListJSON)
         })
@@ -106,12 +106,12 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         }
     }
     
-    private func expect(_ sut: RemoteLandmarkLoader, toCompleteWithError error: RemoteLandmarkLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        var capturedErrors = [RemoteLandmarkLoader.Result]()
-        sut.load { capturedErrors.append($0) }
+    private func expect(_ sut: RemoteLandmarkLoader, toCompleteWithResult result: RemoteLandmarkLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        var capturedResults = [RemoteLandmarkLoader.Result]()
+        sut.load { capturedResults.append($0) }
         
         action()
         
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [result], file: file, line: line)
     }
 }
