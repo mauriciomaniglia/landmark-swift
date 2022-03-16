@@ -20,13 +20,3 @@ public struct Landmark: Equatable {
         self.imageURL = imageURL
     }
 }
-
-extension Landmark: Decodable {
-
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case description
-        case location
-        case imageURL = "image"
-    }
-}
