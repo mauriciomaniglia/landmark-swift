@@ -77,11 +77,8 @@
 		347A6186275C2D6F008FCD6C /* Landmark-swift */ = {
 			isa = PBXGroup;
 			children = (
-				347A619C275C2DB2008FCD6C /* Landmark.swift */,
-				347A619E275C2E02008FCD6C /* LandmarkLoader.swift */,
-				347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */,
-				F9A7838128A3C6DE00D23252 /* HTTPClient.swift */,
-				F9A7838328A3C76500D23252 /* LandmarkMapper.swift */,
+				F9A7838728A3CBD200D23252 /* Landmark API */,
+				F9A7838628A3CBBC00D23252 /* Landmark Feature */,
 			);
 			path = "Landmark-swift";
 			sourceTree = "<group>";
@@ -98,6 +95,25 @@
 			isa = PBXGroup;
 			children = (
 				347A61A2275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift */,
+			);
+			path = "Landmark API";
+			sourceTree = "<group>";
+		};
+		F9A7838628A3CBBC00D23252 /* Landmark Feature */ = {
+			isa = PBXGroup;
+			children = (
+				347A619E275C2E02008FCD6C /* LandmarkLoader.swift */,
+				347A619C275C2DB2008FCD6C /* Landmark.swift */,
+			);
+			path = "Landmark Feature";
+			sourceTree = "<group>";
+		};
+		F9A7838728A3CBD200D23252 /* Landmark API */ = {
+			isa = PBXGroup;
+			children = (
+				347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */,
+				F9A7838128A3C6DE00D23252 /* HTTPClient.swift */,
+				F9A7838328A3C76500D23252 /* LandmarkMapper.swift */,
 			);
 			path = "Landmark API";
 			sourceTree = "<group>";
