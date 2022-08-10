@@ -96,11 +96,20 @@ class RemoteLandmarkLoaderTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(url: URL = URL(string: "http://a-url.com")!) -> (sut: RemoteLandmarkLoader, httpClient: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "http://a-url.com")!, file: StaticString = #file, line: UInt = #line) -> (sut: RemoteLandmarkLoader, httpClient: HTTPClientSpy) {
         let httpClient = HTTPClientSpy()
         let sut = RemoteLandmarkLoader(url: url, httpClient: httpClient)
+        
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(httpClient, file: file, line: line)
 
         return (sut, httpClient)
+    }
+    
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
     }
 
     private class HTTPClientSpy: HTTPClient {
