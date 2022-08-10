@@ -10,6 +10,10 @@ import Foundation
 class LandmarkMapper {
     private struct Root: Decodable {
         let items: [Item]
+        
+        var landmark: [Landmark] {
+            return items.map { $0.item }
+        }
     }
 
     private struct Item: Decodable {
@@ -23,12 +27,11 @@ class LandmarkMapper {
         }
     }
     
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [Landmark] {
-        guard response.statusCode == 200 else {
-            throw RemoteLandmarkLoader.Error.invalidData
+    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteLandmarkLoader.Result {
+        guard response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            return .failure(.invalidData)
         }
         
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.items.map { $0.item }
+        return .success(root.landmark)
     }
 }

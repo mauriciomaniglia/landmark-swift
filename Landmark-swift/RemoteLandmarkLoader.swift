@@ -30,12 +30,7 @@ public class RemoteLandmarkLoader {
         httpClient.get(fromURL: url) { result in
             switch result {
             case let .success(data, response):
-                do {
-                    let items = try LandmarkMapper.map(data, response)
-                    completion(.success(items))
-                } catch {
-                    completion(.failure(.invalidData))
-                }
+                completion(LandmarkMapper.map(data, response))
             case .failure:
                 completion(.failure(.connectivity))
             }
