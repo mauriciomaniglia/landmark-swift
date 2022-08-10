@@ -12,6 +12,7 @@
 		347A619F275C2E02008FCD6C /* LandmarkLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A619E275C2E02008FCD6C /* LandmarkLoader.swift */; };
 		347A61A1275C2E9B008FCD6C /* RemoteLandmarkLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */; };
 		347A61A3275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A61A2275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift */; };
+		F9A7838228A3C6DE00D23252 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A7838128A3C6DE00D23252 /* HTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		347A619E275C2E02008FCD6C /* LandmarkLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkLoader.swift; sourceTree = "<group>"; };
 		347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLandmarkLoader.swift; sourceTree = "<group>"; };
 		347A61A2275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLandmarkLoaderTests.swift; sourceTree = "<group>"; };
+		F9A7838128A3C6DE00D23252 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				347A619C275C2DB2008FCD6C /* Landmark.swift */,
 				347A619E275C2E02008FCD6C /* LandmarkLoader.swift */,
 				347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */,
+				F9A7838128A3C6DE00D23252 /* HTTPClient.swift */,
 			);
 			path = "Landmark-swift";
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			files = (
 				347A61A1275C2E9B008FCD6C /* RemoteLandmarkLoader.swift in Sources */,
 				347A619F275C2E02008FCD6C /* LandmarkLoader.swift in Sources */,
+				F9A7838228A3C6DE00D23252 /* HTTPClient.swift in Sources */,
 				347A619D275C2DB2008FCD6C /* Landmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

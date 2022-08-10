@@ -7,15 +7,6 @@
 
 import Foundation
 
-public enum HTTPClientResult {
-    case success(Data, HTTPURLResponse)
-    case failure(Error)
-}
-
-public protocol HTTPClient {
-    func get(fromURL url: URL, completion: @escaping (HTTPClientResult) -> Void)
-}
-
 public class RemoteLandmarkLoader {
     private let url: URL
     private let httpClient: HTTPClient
