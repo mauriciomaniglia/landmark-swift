@@ -89,9 +89,17 @@
 		347A6190275C2D6F008FCD6C /* Landmark-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				347A61A2275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift */,
+				F9A7838528A3CB6B00D23252 /* Landmark API */,
 			);
 			path = "Landmark-swiftTests";
+			sourceTree = "<group>";
+		};
+		F9A7838528A3CB6B00D23252 /* Landmark API */ = {
+			isa = PBXGroup;
+			children = (
+				347A61A2275C2F64008FCD6C /* RemoteLandmarkLoaderTests.swift */,
+			);
+			path = "Landmark API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
