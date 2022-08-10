@@ -27,7 +27,9 @@ public class RemoteLandmarkLoader {
     }
 
     public func load(completion: @escaping (Result) -> Void) {
-        httpClient.get(fromURL: url) { result in
+        httpClient.get(fromURL: url) { [weak self] result in
+            guard self != nil else { return }
+
             switch result {
             case let .success(data, response):
                 completion(LandmarkMapper.map(data, response))

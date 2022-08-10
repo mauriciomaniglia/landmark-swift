@@ -93,6 +93,20 @@ class RemoteLandmarkLoaderTests: XCTestCase {
             client.complete(withStatusCode: 200, data: json)
         })
     }
+    
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let url = URL(string: "http://any-url.com")!
+        let client = HTTPClientSpy()
+        var sut: RemoteLandmarkLoader? = RemoteLandmarkLoader(url: url, httpClient: client)
+        
+        var capturedResults = [RemoteLandmarkLoader.Result]()
+        sut?.load { capturedResults.append($0) }
+        
+        sut = nil
+        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
+        
+        XCTAssertTrue(capturedResults.isEmpty)
+    }
 
     // MARK: - Helpers
 
