@@ -38,7 +38,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWithResult: .failure(RemoteLandmarkLoader.Error.connectivity), when: {
+        expect(sut, toCompleteWithResult: failure(.connectivity), when: {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         })
@@ -50,7 +50,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
 
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWithResult: .failure(RemoteLandmarkLoader.Error.invalidData), when: {
+            expect(sut, toCompleteWithResult: failure(.invalidData), when: {
                 let json = makeItemsJSON([])
                 client.complete(withStatusCode: code, data: json, at: index)
             })
@@ -60,7 +60,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWithResult: .failure(RemoteLandmarkLoader.Error.invalidData), when: {
+        expect(sut, toCompleteWithResult: failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -186,7 +186,11 @@ class RemoteLandmarkLoaderTests: XCTestCase {
     }
     
     private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
-         let json = ["items": items]
-         return try! JSONSerialization.data(withJSONObject: json)
-     }
+        let json = ["items": items]
+        return try! JSONSerialization.data(withJSONObject: json)
+    }
+    
+    private func failure(_ error: RemoteLandmarkLoader.Error) -> RemoteLandmarkLoader.Result {
+        return .failure(error)
+    }
 }
