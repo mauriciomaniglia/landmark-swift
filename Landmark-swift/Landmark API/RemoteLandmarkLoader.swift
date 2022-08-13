@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RemoteLandmarkLoader {
+public class RemoteLandmarkLoader: LandmarkLoader {
     private let url: URL
     private let httpClient: HTTPClient
 
@@ -16,10 +16,7 @@ public class RemoteLandmarkLoader {
         case invalidData
     }
     
-    public enum Result: Equatable {
-         case success([Landmark])
-         case failure(Error)
-     }
+    public typealias Result = LoaderResult
 
     public init(url: URL, httpClient: HTTPClient) {
         self.url = url
@@ -34,7 +31,7 @@ public class RemoteLandmarkLoader {
             case let .success(data, response):
                 completion(LandmarkMapper.map(data, response))
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
     }
