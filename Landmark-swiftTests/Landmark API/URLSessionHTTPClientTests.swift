@@ -37,14 +37,6 @@ class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.stopInterceptingRequests()
     }
     
-    func test_getFromURL_failsOnRequestError() {
-        let requestError = NSError(domain: "any error", code: 1)
-        
-        let receivedError = resultErrorFor(data: nil, response: nil, error: requestError) as NSError?
-                
-        XCTAssertNotNil(receivedError)
-    }
-    
     func test_getFromURL_performsGETRequestWithURL() {
         let url = anyURL()
         let exp = expectation(description: "Wait for request")
@@ -59,6 +51,14 @@ class URLSessionHTTPClientTests: XCTestCase {
         makeSUT().get(from: url) { _ in }
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_getFromURL_failsOnRequestError() {
+        let requestError = NSError(domain: "any error", code: 1)
+        
+        let receivedError = resultErrorFor(data: nil, response: nil, error: requestError) as NSError?
+                
+        XCTAssertNotNil(receivedError)
     }
     
     func test_getFromURL_failsOnAllNilValues() {
