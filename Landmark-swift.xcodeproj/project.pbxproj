@@ -16,6 +16,7 @@
 		F9A7838428A3C76500D23252 /* LandmarkMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A7838328A3C76500D23252 /* LandmarkMapper.swift */; };
 		F9B1813928A8012E007D5FBD /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B1813828A8012E007D5FBD /* URLSessionHTTPClientTests.swift */; };
 		F9B1814128A99682007D5FBD /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B1814028A99682007D5FBD /* XCTestCase+MemoryLeakTracking.swift */; };
+		F9B1814328AA7010007D5FBD /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B1814228AA7010007D5FBD /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		F9A7838328A3C76500D23252 /* LandmarkMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkMapper.swift; sourceTree = "<group>"; };
 		F9B1813828A8012E007D5FBD /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		F9B1814028A99682007D5FBD /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		F9B1814228AA7010007D5FBD /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				347A61A0275C2E9B008FCD6C /* RemoteLandmarkLoader.swift */,
 				F9A7838128A3C6DE00D23252 /* HTTPClient.swift */,
 				F9A7838328A3C76500D23252 /* LandmarkMapper.swift */,
+				F9B1814228AA7010007D5FBD /* URLSessionHTTPClient.swift */,
 			);
 			path = "Landmark API";
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				347A619F275C2E02008FCD6C /* LandmarkLoader.swift in Sources */,
 				F9A7838228A3C6DE00D23252 /* HTTPClient.swift in Sources */,
 				347A619D275C2DB2008FCD6C /* Landmark.swift in Sources */,
+				F9B1814328AA7010007D5FBD /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
