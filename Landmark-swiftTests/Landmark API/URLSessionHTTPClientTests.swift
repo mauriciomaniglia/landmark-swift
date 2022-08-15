@@ -8,7 +8,7 @@
 import XCTest
 import Landmark_swift
 
-class URLSessionHTTPClient {
+class URLSessionHTTPClient: HTTPClient {
     private let session: URLSession
     
     private struct UnexpectedValuesRepresentation: Error {}
@@ -97,7 +97,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     //MARK: Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> URLSessionHTTPClient {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> HTTPClient {
         let sut = URLSessionHTTPClient()
         
         trackForMemoryLeaks(sut)

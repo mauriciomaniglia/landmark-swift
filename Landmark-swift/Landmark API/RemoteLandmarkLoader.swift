@@ -24,7 +24,7 @@ public class RemoteLandmarkLoader: LandmarkLoader {
     }
 
     public func load(completion: @escaping (Result) -> Void) {
-        httpClient.get(fromURL: url) { [weak self] result in
+        httpClient.get(from: url) { [weak self] result in
             guard self != nil else { return }
 
             switch result {

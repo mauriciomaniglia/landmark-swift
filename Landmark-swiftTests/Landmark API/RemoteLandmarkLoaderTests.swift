@@ -126,7 +126,7 @@ class RemoteLandmarkLoaderTests: XCTestCase {
             return messages.map { $0.url }
         }
 
-        func get(fromURL url: URL, completion: @escaping (HTTPClientResult) -> Void) {            
+        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {            
             messages.append((url, completion))
         }
 
